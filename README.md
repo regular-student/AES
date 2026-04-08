@@ -4,7 +4,7 @@
 
 <ul>
     <li>✅ Key Expansion</li>
-    <li>⬜ Validar Key Expansion</li>
+    <li>✅ Validar Key Expansion</li>
     <li>⬜ State</li>
     <li>⬜ Round keys + AddRoundKey </li>
 </ul>
