@@ -5,6 +5,8 @@
 <ul>
     <li>✅ Key Expansion</li>
     <li>✅ Validar Key Expansion</li>
-    <li>⬜ State</li>
-    <li>⬜ Round keys + AddRoundKey </li>
+    <li>✅ State</li>
+    <li>✅ Round keys + AddRoundKey </li>
+    <li>⬜ Key Derivation </li>
+    <li>⬜ Padding </li>
 </ul>
