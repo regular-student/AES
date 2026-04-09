@@ -7,6 +7,8 @@
     <li>✅ Validar Key Expansion</li>
     <li>✅ State</li>
     <li>✅ Round keys + AddRoundKey </li>
-    <li>⬜ Key Derivation </li>
-    <li>⬜ Padding </li>
+    <li>✅ Key Derivation </li>
+    <li>✅ Padding </li>
+    <li>✅ CBS + sub_bytes </li>
+    <li>⬜ pbkdf2 + lógica de salt </li>
 </ul>
