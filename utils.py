@@ -175,3 +175,33 @@ def mix_columns(state):
         
     return novo_state
 
+## A partir daqui vem a reta final -------------------------- 
+## Padding
+## A ideia do Padding é resolver o problema do tamanho da mensagem, o código até aqui só trabalha com tamanhos fixos de 16 bytes, senhas não costumam ter tamanhos fixos. Por isso o Padding surge pra resolver esse problema antes de quebrar a mensagem em vários blocos de 16 bytes
+
+def pad(mensagem_bytes):
+    tamanho_bloco = 16
+
+    #calcula quantos bytes faltam pro próximo múltiplo de 16
+    bytes_faltando = tamanho_bloco - (len(mensagem_bytes) % tamanho_bloco)
+
+    #Cria os bytes de preenchimento
+    padding = bytes(bytes_faltando)
+
+    return mensagem_bytes + padding
+
+def unpad(mensagem_padded):
+    #remove o padding
+
+    #pega o valor do último byte porque o último byte diz quantos bytes foram adicionados no padding ex:
+    # -> se o último byte é 0x06, eu sei que foram adicionados 6 bytes
+
+    bytes_padding = mensagem_padded[-1]
+
+    if bytes_padding < 1 or bytes_padding > 16:
+        raise ValueError("Padding inválido!")
+
+    #retorna a mensagme cortando os bytes de padding
+    return mensagem_padded[:-bytes_padding]
+
+    
