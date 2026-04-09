@@ -49,3 +49,35 @@ def sub_word(palavra):
 
 def rot_word(palavra):
     return palavra[1:] + palavra[:1]
+
+def bytes_to_states(bloco_16_bytes):
+    #matrix 4x4 vazia
+    state = [
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0]
+    ]
+
+    for i in range(16):
+        linha = i % 4
+        coluna = i // 4
+        state[linha][coluna] = bloco_16_bytes[i]
+
+    return state
+
+def state_to_bytes(state):
+    resultado = []
+
+    for coluna in range(4):
+        for linha in range(4):
+            resultado.append(state[linha][coluna])
+
+    return bytes(resultado)
+
+# a ideia do state_to_bytes é retornar um array linear
+# o state não parece importante agora, mas ele é crucial na hora de adicionar round keys, já que ele faz um xor entre a matriz e os primeiros bytes da expanded key
+
+
+
+    
