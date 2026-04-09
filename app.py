@@ -1,5 +1,5 @@
 import os
-from aes import encrypt_cbc
+from aes import encrypt_cbc, decrypt_cbc
 from pbkdf2 import gerar_chave_pbkdf2
 
 def main():
@@ -23,6 +23,14 @@ def main():
     print(f"SALT (Guardar com o arquivo): {salt_gerado.hex()}")
     print(f"IV   (Guardar com o arquivo): {iv.hex()}")
     print(f"Cifra final ({len(texto_cifrado)} bytes): {texto_cifrado.hex()}")
+
+    #descriptografar
+    mensagem_recuperada_bytes = decrypt_cbc(texto_cifrado, chave_mestra, iv)
+    mensagem_recuperada_texto = mensagem_recuperada_bytes.decode('utf-8')
+
+    print(f"\nMensagem decodificada: '{mensagem_recuperada_texto}'")
+
+    print(f"Chave Mestra: {chave_mestra.hex()}")
 
 if __name__ == "__main__":
     main()

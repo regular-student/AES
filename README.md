@@ -10,5 +10,6 @@
     <li>✅ Key Derivation </li>
     <li>✅ Padding </li>
     <li>✅ CBS + sub_bytes </li>
-    <li>⬜ pbkdf2 + lógica de salt </li>
+    <li>✅ pbkdf2 + lógica de salt </li>
+    <li>✅ Lógica inversa (descriptografar) </li>
 </ul>
