@@ -1,3 +1,6 @@
+#utils.py caixa de ferramentas 
+#hey, check out my toy box!
+
 s_box = [
     0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
     0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
@@ -186,7 +189,7 @@ def pad(mensagem_bytes):
     bytes_faltando = tamanho_bloco - (len(mensagem_bytes) % tamanho_bloco)
 
     #Cria os bytes de preenchimento
-    padding = bytes(bytes_faltando)
+    padding = bytes([bytes_faltando] * bytes_faltando)
 
     return mensagem_bytes + padding
 
@@ -204,4 +207,12 @@ def unpad(mensagem_padded):
     #retorna a mensagme cortando os bytes de padding
     return mensagem_padded[:-bytes_padding]
 
+    
+# xor bytes vai trabalhar com o CBC do aes.py :)
+def xor_bytes(b1, b2):
+    # faz xor entre cada posição de dois arrays de bytes
+    return bytes([a ^ b for a, b in zip(b1, b2)])
+
+
+      
     
