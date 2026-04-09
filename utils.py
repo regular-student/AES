@@ -100,4 +100,78 @@ def add_round_key(state, w, round_num):
 
     return novo_state
 
+# meu sub_bytes vai aplicar sub_byte individualmente nos bytes da minha matriz state ()
+
+def sub_bytes(state):
+    novo_state = [
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0]
+    ]
+
+    for linha in range(4):
+        for coluna in range(4):
+            byte_atual = state[linha][coluna]
+            novo_state[linha][coluna] = sub_byte(byte_atual)
+
+    return novo_state
+
+# O shift_rows vai pegar linhas da matriz exceto a 0 e rotacionar pra esquerda
+# ex | Linha 1 |e|f|g|h|
+#    | Linha 1 |f|g|h|e| (Rotacionou 1)
+
+def shift_rows(state):
+    novo_state = [
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0]
+    ]
+
+    #linha 0 
+    novo_state[0] = state[0][:]
+
+    #linha 1: rotaciona 1 pra esquerda
+    novo_state[1] = state[1][1:] + state[1][:1]
+
+    #linha 2: rotaciona 2 pra esquerda
+    novo_state[2] = state[2][2:] + state[2][:2]
+
+    #linha 3: rotaciona 3 pra esquerda
+    novo_state[3] = state[3][3:] + state[3][:3]
+
+    return novo_state
+
+def galois_mult_2(b):
+
+    #desloca 1 bit para a esquerda e garante que o resultado fique em 8 bits
+    resultado = (b << 1) & 0xff 
+    
+    #se o bit mais à esquerda do byte original (0x80 ou 10000000 em binário) for 1
+    if b & 0x80: 
+        resultado ^= 0x1b
+        
+    return resultado
+
+def mix_columns(state):
+    novo_state = [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ]
+    
+    for c in range(4):
+        b0 = state[0][c]
+        b1 = state[1][c]
+        b2 = state[2][c]
+        b3 = state[3][c]
+        
+        novo_state[0][c] = galois_mult_2(b0) ^ (galois_mult_2(b1) ^ b1) ^ b2 ^ b3
+        novo_state[1][c] = b0 ^ galois_mult_2(b1) ^ (galois_mult_2(b2) ^ b2) ^ b3
+        novo_state[2][c] = b0 ^ b1 ^ galois_mult_2(b2) ^ (galois_mult_2(b3) ^ b3)
+        novo_state[3][c] = (galois_mult_2(b0) ^ b0) ^ b1 ^ b2 ^ galois_mult_2(b3)
+        
+    return novo_state
 
