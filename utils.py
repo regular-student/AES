@@ -78,6 +78,26 @@ def state_to_bytes(state):
 # a ideia do state_to_bytes é retornar um array linear
 # o state não parece importante agora, mas ele é crucial na hora de adicionar round keys, já que ele faz um xor entre a matriz e os primeiros bytes da expanded key
 
+def add_round_key(state, w, round_num):
+    # state - matriz | w - palavras do key_expansion | round_num - rodada atual
+
+    # matriz 4x4 vazia
+    novo_state = [
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0]
+    ]
+
+    inicio_chave = round_num * 4 # onde começam as palavras dessa rodada
+
+    for coluna in range(4):
+        palavra_chave = w[inicio_chave + coluna]
+
+        for linha in range(4):
+            #faz o xor (^)
+            novo_state[linha][coluna] = state[linha][coluna] ^ palavra_chave[linha]
+
+    return novo_state
 
 
-    
